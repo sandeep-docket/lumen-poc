@@ -1,9 +1,11 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { cn } from "@theme/utils";
 
 export interface FooterLink {
   label: string;
   href: string;
+  external?: boolean;
 }
 
 export interface FooterSection {
@@ -40,12 +42,23 @@ const Footer = React.forwardRef<HTMLElement, FooterProps>(
                   <ul className="space-y-2">
                     {section.links.map((link, linkIndex) => (
                       <li key={linkIndex}>
-                        <a
-                          href={link.href}
-                          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                          {link.label}
-                        </a>
+                        {link.external ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            {link.label}
+                          </a>
+                        ) : (
+                          <Link
+                            to={link.href}
+                            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            {link.label}
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>

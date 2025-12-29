@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@atoms/Button";
 import { cn } from "@theme/utils";
 import { Menu, X } from "lucide-react";
@@ -19,6 +20,7 @@ export interface HeaderProps {
 const Header = React.forwardRef<HTMLElement, HeaderProps>(
   ({ logo, navItems = [], actions, className }, ref) => {
     const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+    const location = useLocation();
 
     return (
       <header
@@ -30,28 +32,31 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
       >
         <div className="container flex h-16 items-center justify-between px-4">
           {/* Logo */}
-          <div className="flex items-center">
+          <Link to="/" className="flex items-center">
             {logo || (
               <span className="text-xl font-bold">Logo</span>
             )}
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            {navItems.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  item.active
-                    ? "text-foreground"
-                    : "text-muted-foreground"
-                )}
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item, index) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <Link
+                  key={index}
+                  to={item.href}
+                  className={cn(
+                    "text-sm font-medium transition-colors hover:text-primary",
+                    isActive
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Actions */}
@@ -80,20 +85,24 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(
         {mobileMenuOpen && (
           <div className="md:hidden border-t">
             <nav className="container px-4 py-4 space-y-3">
-              {navItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  className={cn(
-                    "block text-sm font-medium transition-colors hover:text-primary",
-                    item.active
-                      ? "text-foreground"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item, index) => {
+                const isActive = location.pathname === item.href;
+                return (
+                  <Link
+                    key={index}
+                    to={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                      "block text-sm font-medium transition-colors hover:text-primary",
+                      isActive
+                        ? "text-foreground"
+                        : "text-muted-foreground"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
               {actions && (
                 <div className="pt-2 space-y-2">
                   {actions}
