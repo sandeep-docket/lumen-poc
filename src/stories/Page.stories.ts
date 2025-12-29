@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent } from '@storybook/testing-library';
 
 import { Page } from './Page';
@@ -19,13 +19,12 @@ export const LoggedOut: Story = {};
 
 // More on component testing: https://storybook.js.org/docs/writing-tests/interaction-testing
 export const LoggedIn: Story = {
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const loginButton = canvas.getByRole('button', { name: /Log in/i });
     // Note: expect assertions require @storybook/jest or @testing-library/jest-dom
     // For now, the interaction will still work without explicit assertions
     await userEvent.click(loginButton);
-    const logoutButton = canvas.getByRole('button', { name: /Log out/i });
     // Logout button should be visible after login
   },
 };

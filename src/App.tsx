@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Button } from '@atoms/Button';
 import { Badge } from '@atoms/Badge';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@molecules/Card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@molecules/Card';
 import { SearchBar } from '@molecules/SearchBar';
 import { Header } from '@organisms/Header';
 import { Footer } from '@organisms/Footer';
 import { LoginForm } from '@organisms/LoginForm';
-import { toggleTheme } from '@theme';
+import { toggleTheme } from '@theme/theme';
 import { Moon, Sun, Github } from 'lucide-react';
 
 function App() {

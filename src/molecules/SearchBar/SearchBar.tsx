@@ -10,7 +10,7 @@ export interface SearchBarProps {
   className?: string;
 }
 
-const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(
+const SearchBar = React.forwardRef<HTMLFormElement, SearchBarProps>(
   ({ onSearch, placeholder = "Search...", className }, ref) => {
     const [query, setQuery] = React.useState("");
 

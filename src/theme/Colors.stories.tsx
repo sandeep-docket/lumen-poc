@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { colors } from './tokens';
-import { semanticColors } from './figma-tokens';
 
 const meta = {
   title: 'Design System/Colors & Variables',
@@ -76,13 +75,11 @@ const ColorSwatch = ({ name, value, description }: { name: string; value: string
 const ColorPair = ({ 
   bgName, 
   bgValue, 
-  fgName, 
   fgValue, 
   description 
 }: { 
   bgName: string; 
   bgValue: string; 
-  fgName: string; 
   fgValue: string;
   description?: string;
 }) => {
@@ -163,7 +160,7 @@ export const ColorNaming: Story = {
 
 export const ColorStructure: Story = {
   render: () => {
-    const modes = ['docket', 'web', 'shadcn-dark'] as const;
+    const modes = ['docket', 'web', 'dark'] as const;
     
     return (
       <div className="p-8 max-w-7xl mx-auto">
@@ -183,7 +180,7 @@ export const ColorStructure: Story = {
                 <p className="text-sm text-gray-600">
                   {mode === 'docket' && 'Default mode for Docket applications'}
                   {mode === 'web' && 'Web-focused color palette'}
-                  {mode === 'shadcn-dark' && 'Dark mode variant'}
+                  {mode === 'dark' && 'Dark mode variant'}
                 </p>
               </div>
             ))}
@@ -230,7 +227,7 @@ export const ColorStructure: Story = {
 // Access colors by mode
 colors.docket.primary
 colors.web.primary
-colors['shadcn-dark'].primary
+colors.dark.primary
 
 // Structure:
 colors: {
@@ -242,7 +239,7 @@ colors: {
     // ...
   },
   web: { /* ... */ },
-  'shadcn-dark': { /* ... */ }
+  dark: { /* ... */ }
 }`}
             </pre>
           </div>
@@ -280,7 +277,6 @@ export const SemanticColors: Story = {
               key={bg}
               bgName={bg}
               bgValue={modeColors[bg as keyof typeof modeColors] as string}
-              fgName={fg}
               fgValue={modeColors[fg as keyof typeof modeColors] as string}
               description={desc}
             />
@@ -381,7 +377,7 @@ export const ContextColors: Story = {
 
 export const ModeComparison: Story = {
   render: () => {
-    const modes = ['docket', 'web', 'shadcn-dark'] as const;
+    const modes = ['docket', 'web', 'dark'] as const;
     const colorKeys = ['primary', 'secondary', 'destructive', 'background', 'foreground'] as const;
     
     return (
